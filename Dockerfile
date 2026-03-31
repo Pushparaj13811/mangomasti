@@ -11,6 +11,7 @@ COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 ENV DATABASE_URL=postgresql://placeholder:placeholder@localhost:5432/placeholder
 ENV NODE_ENV=production
+ENV DOCKER_BUILD=true
 RUN bun run build
 
 # Stage 3: Migration runner (separate lightweight image)
