@@ -14,10 +14,21 @@ services:
       timeout: 5s
       retries: 5
 
+  migrate:
+    build:
+      context: .
+      target: migrator
+    environment:
+      DATABASE_URL: postgresql://${POSTGRES_USER:-mangomasti}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB:-mangomasti}
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: "no"
+
   app:
     build:
       context: .
-      dockerfile: Dockerfile
+      target: runner
     restart: unless-stopped
     ports:
       - "3000:3000"
@@ -25,8 +36,8 @@ services:
       DATABASE_URL: postgresql://${POSTGRES_USER:-mangomasti}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB:-mangomasti}
       NODE_ENV: production
     depends_on:
-      postgres:
-        condition: service_healthy
+      migrate:
+        condition: service_completed_successfully
 
 volumes:
   postgres_data:
