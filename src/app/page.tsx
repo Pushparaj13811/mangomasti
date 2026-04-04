@@ -1,12 +1,11 @@
-"use client";
-
 import Image from "next/image";
 import Link from "next/link";
-import { mangoes, buildGenericWhatsAppUrl, buildWhatsAppUrl } from "./lib/mangoes";
+import { getMangoes } from "./actions/mangoes";
+import { getConfig } from "./actions/config";
+import MangoCardWithModal from "./components/MangoCardWithModal";
+import ComboCard from "./components/ComboCard";
+import { buildGenericWhatsAppUrl } from "./lib/mangoes";
 import {
-  imgAlphonso1,
-  imgBanganapalli1,
-  imgKesar1,
   imgPremiumMangoes,
   imgPremiumAlphonsoMangoes,
 } from "./lib/images";
@@ -18,42 +17,6 @@ function WhatsAppIcon({ size = 18 }: { size?: number }) {
     </svg>
   );
 }
-
-const featuredVarieties = [
-  {
-    name: "Alphonso",
-    origin: "Ratnagiri",
-    image: imgAlphonso1,
-    description:
-      "The king of mangoes. Known for its rich, creamy, tender texture and delicate, non-fibrous, juicy pulp.",
-    badge: "PREMIUM",
-    badgeColor: "#BCF0AE",
-    badgeTextColor: "#1a4d2e",
-    mango: mangoes.find((m) => m.slug === "alphonso")!,
-  },
-  {
-    name: "Kesar",
-    origin: "Junagadh",
-    image: imgKesar1,
-    description:
-      "The 'Queen of Mangoes'. Characterized by its golden saffron glow and intense, intoxicating aroma.",
-    badge: "SWEETEST",
-    badgeColor: "#FFDEA1",
-    badgeTextColor: "#7a5900",
-    mango: mangoes.find((m) => m.slug === "kesar")!,
-  },
-  {
-    name: "Banganapalli",
-    origin: "Andhra Pradesh",
-    image: imgBanganapalli1,
-    description:
-      "Large sized, uniquely oblong shape with a pleasantly sweet taste and firm, fibre-free flesh.",
-    badge: "VERSATILE",
-    badgeColor: "#E9E8E7",
-    badgeTextColor: "#3c3b3a",
-    mango: mangoes.find((m) => m.slug === "banganapalli")!,
-  },
-];
 
 const trustItems = [
   {
@@ -97,7 +60,14 @@ const reviews = [
   },
 ];
 
-export default function HomePage() {
+export default async function HomePage() {
+  // Fetch featured mangoes from database
+  const allMangoes = await getMangoes();
+  const featuredMangoes = allMangoes.filter((m) => m.featured).slice(0, 3);
+
+  // Fetch config
+  const config = await getConfig();
+
   return (
     <main style={{ paddingTop: "72px" }}>
 
@@ -392,114 +362,58 @@ export default function HomePage() {
       </section>
 
       {/* ===== VARIETIES SECTION ===== */}
-      <section className="section" style={{ background: "var(--surface-container-low)" }}>
-        <div className="container">
-          <div style={{ marginBottom: "48px" }}>
-            <div
-              style={{
-                fontSize: "0.72rem",
-                fontWeight: 800,
-                color: "var(--primary)",
-                letterSpacing: "0.15em",
-                textTransform: "uppercase",
-                marginBottom: "12px",
-              }}
-            >
-              THE COLLECTION
-            </div>
-            <h2
-              style={{
-                fontSize: "clamp(1.8rem, 4vw, 2.8rem)",
-                fontWeight: 800,
-                color: "var(--on-surface)",
-                letterSpacing: "-0.03em",
-                marginBottom: "12px",
-              }}
-            >
-              Our Curated Varieties
-            </h2>
-            <p
-              style={{
-                fontSize: "1rem",
-                color: "var(--on-surface-variant)",
-                maxWidth: "480px",
-                lineHeight: 1.75,
-              }}
-            >
-              Each variety is a unique testament to India&apos;s diverse climate
-              and soil.
-            </p>
-          </div>
-
-          <div className="grid-3">
-            {featuredVarieties.map((variety) => (
-              <div key={variety.name} className="mango-card">
-                <div className="img-wrap">
-                  <Image
-                    src={variety.image}
-                    alt={variety.name}
-                    width={400}
-                    height={220}
-                    style={{ width: "100%", height: "220px", objectFit: "cover" }}
-                    sizes="(max-width: 640px) 100vw, 33vw"
-                  />
-                </div>
-                <div className="info">
-                  <div className="variety-tag">{variety.origin}</div>
-                  <h3
-                    style={{
-                      fontSize: "1.25rem",
-                      fontWeight: 700,
-                      marginBottom: "10px",
-                      color: "var(--on-surface)",
-                      letterSpacing: "-0.02em",
-                    }}
-                  >
-                    {variety.name}
-                  </h3>
-
-                  <p
-                    style={{
-                      fontSize: "0.87rem",
-                      color: "var(--on-surface-variant)",
-                      lineHeight: 1.7,
-                      marginBottom: "20px",
-                    }}
-                  >
-                    {variety.description}
-                  </p>
-
-                  {variety.mango && (
-                    <a
-                      href={buildWhatsAppUrl(variety.mango)}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      style={{
-                        display: "inline-flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        gap: "8px",
-                        background: "var(--inverse-surface)",
-                        color: "#ffffff",
-                        borderRadius: "9999px",
-                        padding: "11px 20px",
-                        fontSize: "0.88rem",
-                        fontWeight: 700,
-                        textDecoration: "none",
-                        width: "100%",
-                        letterSpacing: "0.01em",
-                      }}
-                    >
-                      <WhatsAppIcon size={16} />
-                      Order on WhatsApp
-                    </a>
-                  )}
-                </div>
+      {featuredMangoes.length > 0 && (
+        <section className="section" style={{ background: "var(--surface-container-low)" }}>
+          <div className="container">
+            <div style={{ marginBottom: "48px" }}>
+              <div
+                style={{
+                  fontSize: "0.72rem",
+                  fontWeight: 800,
+                  color: "var(--primary)",
+                  letterSpacing: "0.15em",
+                  textTransform: "uppercase",
+                  marginBottom: "12px",
+                }}
+              >
+                THE COLLECTION
               </div>
-            ))}
+              <h2
+                style={{
+                  fontSize: "clamp(1.8rem, 4vw, 2.8rem)",
+                  fontWeight: 800,
+                  color: "var(--on-surface)",
+                  letterSpacing: "-0.03em",
+                  marginBottom: "12px",
+                }}
+              >
+                Our Curated Varieties
+              </h2>
+              <p
+                style={{
+                  fontSize: "1rem",
+                  color: "var(--on-surface-variant)",
+                  maxWidth: "480px",
+                  lineHeight: 1.75,
+                }}
+              >
+                Each variety is a unique testament to India&apos;s diverse climate
+                and soil.
+              </p>
+            </div>
+
+            <div className="grid-3">
+              {/* Combo Card - Always First */}
+              <ComboCard allMangoes={allMangoes} />
+
+              {/* Featured Mangoes */}
+              {featuredMangoes.map((mango) => (
+                <MangoCardWithModal key={mango.id} mango={mango} config={config} />
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* ===== REVIEWS SECTION ===== */}
       <section className="section" style={{ background: "var(--surface-container-lowest)" }}>
