@@ -4,6 +4,7 @@ import { db } from "@/app/db";
 import { reviews, type NewReview } from "@/app/db/schema";
 import { eq, desc } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
+import { verifySession } from "./auth";
 
 export async function getApprovedReviews() {
   try {
@@ -15,6 +16,91 @@ export async function getApprovedReviews() {
   } catch (error) {
     console.error("Failed to fetch reviews:", error);
     return { data: [], error: "Failed to fetch reviews" };
+  }
+}
+
+/**
+ * Get all reviews (admin only - includes unapproved)
+ */
+export async function getAllReviews() {
+  try {
+    const data = await db.select().from(reviews).orderBy(desc(reviews.createdAt));
+    return data;
+  } catch (error) {
+    console.error("Error fetching all reviews:", error);
+    return [];
+  }
+}
+
+/**
+ * Approve a review
+ */
+export async function approveReview(id: number): Promise<{ success: boolean; error?: string }> {
+  try {
+    // Verify admin session
+    const { authenticated } = await verifySession();
+    if (!authenticated) {
+      return { success: false, error: "Unauthorized" };
+    }
+
+    await db.update(reviews).set({ approved: true }).where(eq(reviews.id, id));
+
+    // Revalidate reviews page
+    revalidatePath("/reviews");
+    revalidatePath("/admin/reviews");
+
+    return { success: true };
+  } catch (error) {
+    console.error("Error approving review:", error);
+    return { success: false, error: "Failed to approve review" };
+  }
+}
+
+/**
+ * Unapprove a review
+ */
+export async function unapproveReview(id: number): Promise<{ success: boolean; error?: string }> {
+  try {
+    // Verify admin session
+    const { authenticated } = await verifySession();
+    if (!authenticated) {
+      return { success: false, error: "Unauthorized" };
+    }
+
+    await db.update(reviews).set({ approved: false }).where(eq(reviews.id, id));
+
+    // Revalidate reviews page
+    revalidatePath("/reviews");
+    revalidatePath("/admin/reviews");
+
+    return { success: true };
+  } catch (error) {
+    console.error("Error unapproving review:", error);
+    return { success: false, error: "Failed to unapprove review" };
+  }
+}
+
+/**
+ * Delete a review
+ */
+export async function deleteReview(id: number): Promise<{ success: boolean; error?: string }> {
+  try {
+    // Verify admin session
+    const { authenticated } = await verifySession();
+    if (!authenticated) {
+      return { success: false, error: "Unauthorized" };
+    }
+
+    await db.delete(reviews).where(eq(reviews.id, id));
+
+    // Revalidate reviews page
+    revalidatePath("/reviews");
+    revalidatePath("/admin/reviews");
+
+    return { success: true };
+  } catch (error) {
+    console.error("Error deleting review:", error);
+    return { success: false, error: "Failed to delete review" };
   }
 }
 
