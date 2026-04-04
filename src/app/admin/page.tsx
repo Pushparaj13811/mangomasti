@@ -136,7 +136,7 @@ export default async function AdminDashboard() {
         </h2>
         <div style={{ display: "flex", gap: "12px", flexWrap: "wrap" }}>
           <InteractiveLink
-            href="/admin/mangoes"
+            href="/admin/mangoes/add"
             style={{
               display: "inline-flex",
               alignItems: "center",
@@ -160,7 +160,7 @@ export default async function AdminDashboard() {
             <span>Add New Mango</span>
           </InteractiveLink>
           <InteractiveLink
-            href="/admin/settings"
+            href="/admin/reviews"
             style={{
               display: "inline-flex",
               alignItems: "center",
@@ -180,8 +180,8 @@ export default async function AdminDashboard() {
               borderColor: "#d1d5db",
             }}
           >
-            <span>⚙️</span>
-            <span>Manage Display Settings</span>
+            <span>💬</span>
+            <span>Manage Reviews</span>
           </InteractiveLink>
           <InteractiveLink
             href="/"
@@ -273,7 +273,7 @@ export default async function AdminDashboard() {
                   </div>
                 </div>
                 <InteractiveLink
-                  href={`/admin/mangoes`}
+                  href={`/admin/mangoes/edit/${mango.id}`}
                   style={{
                     padding: "8px 16px",
                     borderRadius: "6px",
