@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { getMangoes } from "./actions/mangoes";
 import { getConfig } from "./actions/config";
+import { getApprovedReviews } from "./actions/reviews";
 import MangoCardWithModal from "./components/MangoCardWithModal";
 import ComboCard from "./components/ComboCard";
 import { buildGenericWhatsAppUrl } from "./lib/mangoes";
@@ -39,27 +40,6 @@ const trustItems = [
   },
 ];
 
-const reviews = [
-  {
-    name: "Ananya Sharma",
-    stars: 5,
-    text: "The Alphonso mangoes were absolutely heavenly. Reminded me of my childhood summers in Ratnagiri.",
-    initial: "A",
-  },
-  {
-    name: "Vikram Mehta",
-    stars: 5,
-    text: "Prompt delivery and impeccable quality. The Kesar mangoes were incredibly aromatic and sweet.",
-    initial: "V",
-  },
-  {
-    name: "Priya Iyer",
-    stars: 5,
-    text: "Best place to order mangoes online. The packaging was eco-friendly and kept the fruit perfect.",
-    initial: "P",
-  },
-];
-
 export default async function HomePage() {
   // Fetch featured mangoes from database
   const allMangoes = await getMangoes();
@@ -67,6 +47,15 @@ export default async function HomePage() {
 
   // Fetch config
   const config = await getConfig();
+
+  // Fetch approved reviews
+  const { data: allReviews } = await getApprovedReviews();
+  const reviews = allReviews.slice(0, 3).map((review) => ({
+    name: review.name,
+    stars: review.rating,
+    text: review.body,
+    initial: review.name.charAt(0).toUpperCase(),
+  }));
 
   return (
     <main style={{ paddingTop: "72px" }}>
