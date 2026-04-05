@@ -36,7 +36,7 @@ export default async function VarietiesPage() {
               marginBottom: "20px",
             }}
           >
-            SEASONAL SELECTION 2024
+            SEASONAL SELECTION 2026
           </div>
 
           {/* Headline */}

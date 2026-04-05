@@ -107,7 +107,7 @@ export default async function HomePage() {
           <div style={{ maxWidth: "580px" }}>
             <div className="badge" style={{ marginBottom: "28px" }}>
               <span>🌿</span>
-              <span>SEASON 2024 NOW OPEN</span>
+              <span>SEASON 2026 NOW OPEN</span>
             </div>
             <h1
               style={{
