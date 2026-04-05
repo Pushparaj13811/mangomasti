@@ -57,7 +57,7 @@ export default function MangoTable({ mangoes }: MangoTableProps) {
 
   const handleToggleFeatured = async (id: number, currentFeatured: boolean) => {
     try {
-      await toggleFeatured(id, !currentFeatured);
+      await toggleFeatured(id);
       router.refresh();
     } catch (error) {
       console.error("Error toggling featured:", error);
