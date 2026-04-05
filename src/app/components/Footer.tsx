@@ -5,23 +5,17 @@ import Link from "next/link";
 const shopLinks = [
   { href: "/", label: "Home" },
   { href: "/varieties", label: "Our Mangoes" },
-  { href: "/related-products", label: "Mango Related Products" },
 ];
 
 const exploreLinks = [
   { href: "/reviews", label: "Reviews" },
   { href: "/about", label: "About Us" },
-  { href: "/gallery", label: "Gallery" },
 ];
 
-const legalLinks = [
-  { href: "/privacy", label: "Privacy Policy" },
-];
+const legalLinks: { href: string; label: string }[] = [];
 
 const allMobileLinks = [
   { href: "/varieties", label: "Our Mangoes" },
-  { href: "/gallery", label: "Gallery" },
-  { href: "/related-products", label: "Products" },
   { href: "/reviews", label: "Reviews" },
   { href: "/about", label: "About Us" },
 ];
