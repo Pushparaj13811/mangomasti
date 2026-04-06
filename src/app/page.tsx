@@ -82,7 +82,7 @@ export default async function HomePage() {
             position: "absolute",
             inset: 0,
             background:
-              "linear-gradient(to right, rgba(244,243,242,0.97) 0%, rgba(244,243,242,0.88) 35%, rgba(244,243,242,0.40) 60%, rgba(244,243,242,0) 100%)",
+              "linear-gradient(to right, rgba(244,243,242,0.82) 0%, rgba(244,243,242,0.65) 35%, rgba(244,243,242,0.25) 55%, rgba(244,243,242,0) 100%)",
             zIndex: 1,
           }}
         />
