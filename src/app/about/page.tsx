@@ -65,19 +65,79 @@ export default async function AboutPage() {
                 </span>
               </h1>
               <div style={{ maxWidth: "460px" }}>
-                {content.heroDescription.split("\n\n").map((para, i) => (
-                  <p
-                    key={i}
-                    style={{
-                      fontSize: "1rem",
-                      color: "var(--on-surface-variant)",
-                      lineHeight: 1.8,
-                      marginBottom: i < content.heroDescription.split("\n\n").length - 1 ? "16px" : 0,
-                    }}
-                  >
-                    {para}
-                  </p>
-                ))}
+                {(() => {
+                  const lines = content.heroDescription.split("\n");
+                  const groups: { type: "paragraph" | "checklist"; lines: string[] }[] = [];
+                  for (const line of lines) {
+                    const trimmed = line.trim();
+                    if (!trimmed) continue;
+                    const isBullet = /^[✔✓☑•\-–—]/.test(trimmed);
+                    if (isBullet) {
+                      const last = groups[groups.length - 1];
+                      if (last?.type === "checklist") {
+                        last.lines.push(trimmed.replace(/^[✔✓☑•\-–—]\s*/, ""));
+                      } else {
+                        groups.push({ type: "checklist", lines: [trimmed.replace(/^[✔✓☑•\-–—]\s*/, "")] });
+                      }
+                    } else {
+                      groups.push({ type: "paragraph", lines: [trimmed] });
+                    }
+                  }
+                  return groups.map((group, i) =>
+                    group.type === "checklist" ? (
+                      <ul
+                        key={i}
+                        style={{
+                          listStyle: "none",
+                          padding: 0,
+                          margin: "16px 0",
+                          display: "flex",
+                          flexDirection: "column",
+                          gap: "10px",
+                        }}
+                      >
+                        {group.lines.map((item, j) => (
+                          <li
+                            key={j}
+                            style={{
+                              display: "flex",
+                              alignItems: "flex-start",
+                              gap: "10px",
+                              fontSize: "0.95rem",
+                              color: "var(--on-surface)",
+                              lineHeight: 1.6,
+                            }}
+                          >
+                            <span
+                              style={{
+                                color: "var(--primary)",
+                                fontWeight: 700,
+                                fontSize: "1.1rem",
+                                lineHeight: 1.4,
+                                flexShrink: 0,
+                              }}
+                            >
+                              ✔
+                            </span>
+                            {item}
+                          </li>
+                        ))}
+                      </ul>
+                    ) : (
+                      <p
+                        key={i}
+                        style={{
+                          fontSize: "1rem",
+                          color: "var(--on-surface-variant)",
+                          lineHeight: 1.8,
+                          marginBottom: "8px",
+                        }}
+                      >
+                        {group.lines[0]}
+                      </p>
+                    )
+                  );
+                })()}
               </div>
             </div>
 
@@ -143,14 +203,14 @@ export default async function AboutPage() {
                 }}
               />
               <div>
-                {content.whoDescription.split("\n\n").map((para, i) => (
+                {content.whoDescription.split(/\n\n|\n/).filter(Boolean).map((para, i, arr) => (
                   <p
                     key={i}
                     style={{
                       fontSize: "0.97rem",
                       color: "var(--on-surface-variant)",
                       lineHeight: 1.8,
-                      marginBottom: i < content.whoDescription.split("\n\n").length - 1 ? "16px" : 0,
+                      marginBottom: i < arr.length - 1 ? "16px" : 0,
                     }}
                   >
                     {para}

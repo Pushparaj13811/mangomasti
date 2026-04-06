@@ -26,10 +26,10 @@ const defaultContent: AboutContent = {
   heroBadge: "Est. 2016 — 8 Years of Excellence",
   heroHeading: "The Soul of India's Golden Orchards.",
   heroDescription:
-    "We aren't just selling fruit; we're delivering a sun-drenched heritage.\n\nFor nearly a decade, we have scoured the heart of India to source the most exquisite mangoes for the global palate.",
+    "We aren't just selling fruit; we're delivering a sun-drenched heritage. For nearly a decade, we have scoured the heart of India to source the most exquisite mangoes for the global palate.",
   whoHeading: "Who We Are",
   whoDescription:
-    "Mango Masti was born from a singular obsession: the perfect mango. Unlike typical growers who focus on a single plot of land, we act as curators and master retailers.\n\nWe spend our seasons traveling through Ratnagiri, Devgad, and the lush groves of Andhra Pradesh. We don't grow mangoes; we source them from the most respected farmers who share our uncompromising standards for ripeness, texture, and fragrance.",
+    "Mango Masti was born from a singular obsession: the perfect mango. Unlike typical growers who focus on a single plot of land, we act as curators and master retailers. We spend our seasons traveling through Ratnagiri, Devgad, and the lush groves of Andhra Pradesh. We don't grow mangoes; we source them from the most respected farmers who share our uncompromising standards for ripeness, texture, and fragrance.",
   pillars: [
     {
       icon: "🏆",
