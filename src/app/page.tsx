@@ -401,7 +401,7 @@ export default async function HomePage() {
                     lineHeight: 1.75,
                   }}
                 >
-                  Fresh, Handpicked Mangoes at Prices Better Than the Market. Straight from the farms to your doorstep.
+                  Fresh, Handpicked Mangoes at Prices Better Than the Market Straight from the farms to your doorstep
                 </p>
               </div>
               <Link

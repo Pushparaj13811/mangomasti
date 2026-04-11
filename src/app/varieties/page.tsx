@@ -66,9 +66,7 @@ export default async function VarietiesPage() {
               lineHeight: 1.75,
             }}
           >
-            From the sun-kissed orchards of Ratnagiri to the fertile plains of Uttar
-            Pradesh, we bring you India&apos;s finest gold. Hand-selected at peak
-            ripeness, our catalog celebrates the soul of the summer.
+            Fresh, Handpicked Mangoes at Prices Better Than the Market Straight from the farms to your doorstep
           </p>
         </div>
       </section>
