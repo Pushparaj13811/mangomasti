@@ -67,11 +67,14 @@ export default async function ReviewsPage() {
             {/* Body text */}
             <p
               style={{
-                fontSize: "1rem",
-                color: "var(--on-surface-variant)",
-                lineHeight: 1.75,
+                fontSize: "1.2rem",
+                fontWeight: 600,
+                color: "var(--on-surface)",
+                lineHeight: 1.6,
                 fontFamily: "var(--font-vietnam, 'Be Vietnam Pro'), sans-serif",
                 marginBottom: "32px",
+                borderLeft: "3px solid var(--primary-container)",
+                paddingLeft: "14px",
               }}
             >
               Hear it from our happy customers.

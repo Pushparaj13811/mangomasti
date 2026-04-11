@@ -62,10 +62,7 @@ export default async function AboutPage() {
                   marginBottom: "24px",
                 }}
               >
-                {content.heroHeading.split("'s")[0]}&apos;s{" "}
-                <span style={{ color: "var(--primary)", display: "block" }}>
-                  {content.heroHeading.split("'s")[1]}
-                </span>
+                {content.heroHeading}
               </h1>
               <div style={{ maxWidth: "460px" }}>
                 {(() => {
