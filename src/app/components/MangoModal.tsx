@@ -57,9 +57,9 @@ export default function MangoModal({ mango, isOpen, onClose, config = {} }: Mang
   // Format price in rupees (no decimals)
   const formatPrice = (paise: number) => `₹${Math.round(paise / 100)}`;
 
-  // Auto-calculate original price as discountedPrice / 0.8 (20% off)
+  // originalPrice = MRP (admin-entered), discountedPrice = MRP * 0.8 (auto-computed)
   const discountedPaise = mango.discountedPrice;
-  const originalPaise = Math.round(discountedPaise / 0.8);
+  const originalPaise = mango.originalPrice ?? Math.round(discountedPaise / 0.8);
 
   // Parse config values
   const showSeason = config.show_season === "true";

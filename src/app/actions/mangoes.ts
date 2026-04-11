@@ -117,12 +117,12 @@ export async function createMango(formData: FormData): Promise<{ success: boolea
     const origin = formData.get("origin") as string;
     const taste = formData.get("taste") as string;
     const featured = formData.get("featured") === "true";
-    const discountedPrice = parseInt(formData.get("discountedPrice") as string);
-    const originalPrice = Math.round(discountedPrice / 0.8); // auto 20% off
+    const originalPrice = parseInt(formData.get("originalPrice") as string);
+    const discountedPrice = Math.round(originalPrice * 0.8); // auto 20% off
     const tags = formData.get("tags") as string;
 
     // Validate required fields
-    if (!name || !description || !longDescription || !discountedPrice) {
+    if (!name || !description || !longDescription || !originalPrice) {
       return { success: false, error: "Missing required fields" };
     }
 
@@ -203,13 +203,13 @@ export async function updateMango(
     const origin = formData.get("origin") as string;
     const taste = formData.get("taste") as string;
     const featured = formData.get("featured") === "true";
-    const discountedPrice = parseInt(formData.get("discountedPrice") as string);
-    const originalPrice = Math.round(discountedPrice / 0.8); // auto 20% off
+    const originalPrice = parseInt(formData.get("originalPrice") as string);
+    const discountedPrice = Math.round(originalPrice * 0.8); // auto 20% off
     const tags = formData.get("tags") as string;
     const existingImagesJson = formData.get("existingImages") as string;
 
     // Validate required fields
-    if (!name || !description || !longDescription || !discountedPrice) {
+    if (!name || !description || !longDescription || !originalPrice) {
       return { success: false, error: "Missing required fields" };
     }
 

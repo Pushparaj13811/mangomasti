@@ -16,9 +16,9 @@ export default function MangoCardWithModal({ mango, config = {} }: MangoCardWith
   // Format price in rupees (no decimals)
   const formatPrice = (paise: number) => `₹${Math.round(paise / 100)}`;
 
-  // Auto-calculate original price as discountedPrice / 0.8 (i.e. 20% off)
+  // originalPrice = MRP (admin-entered), discountedPrice = MRP * 0.8 (auto-computed)
   const discountedPaise = mango.discountedPrice;
-  const originalPaise = Math.round(discountedPaise / 0.8);
+  const originalPaise = mango.originalPrice ?? Math.round(discountedPaise / 0.8);
 
   const showTags = config.show_tags === "true";
 

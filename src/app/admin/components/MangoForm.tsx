@@ -36,7 +36,7 @@ export default function MangoForm({ mango }: MangoFormProps) {
     taste: mango?.taste || "",
     tags: mango?.tags?.join(", ") || "",
     featured: mango?.featured || false,
-    discountedPrice: mango?.discountedPrice ? (mango.discountedPrice / 100).toFixed(0) : "",
+    originalPrice: mango?.originalPrice ? (mango.originalPrice / 100).toFixed(0) : "",
   });
 
   // Existing images (base64 strings)
@@ -100,7 +100,7 @@ export default function MangoForm({ mango }: MangoFormProps) {
       formDataToSend.append("taste", formData.taste);
       formDataToSend.append("tags", formData.tags);
       formDataToSend.append("featured", String(formData.featured));
-      formDataToSend.append("discountedPrice", String(Math.round(parseFloat(formData.discountedPrice) * 100)));
+      formDataToSend.append("originalPrice", String(Math.round(parseFloat(formData.originalPrice) * 100)));
 
       // Send existing images as JSON
       if (mango) {
@@ -521,16 +521,16 @@ export default function MangoForm({ mango }: MangoFormProps) {
                   marginBottom: "8px",
                 }}
               >
-                Your Price per kg (₹) <span style={{ color: "#ef4444" }}>*</span>
+                MRP / Market Price per kg (₹) <span style={{ color: "#ef4444" }}>*</span>
               </label>
               <input
                 type="number"
                 step="1"
                 min="0"
                 required
-                value={formData.discountedPrice}
-                onChange={(e) => setFormData({ ...formData, discountedPrice: e.target.value })}
-                placeholder="e.g. 150"
+                value={formData.originalPrice}
+                onChange={(e) => setFormData({ ...formData, originalPrice: e.target.value })}
+                placeholder="e.g. 188"
                 style={{
                   width: "100%",
                   padding: "12px 16px",
@@ -549,9 +549,9 @@ export default function MangoForm({ mango }: MangoFormProps) {
                   e.currentTarget.style.boxShadow = "none";
                 }}
               />
-              {formData.discountedPrice && (
+              {formData.originalPrice && (
                 <p style={{ fontSize: "0.8rem", color: "#6b7280", marginTop: "8px" }}>
-                  Will show as <strong>₹{formData.discountedPrice}/kg</strong> with original <strong>₹{Math.round(parseFloat(formData.discountedPrice) / 0.8)}</strong> struck through (20% OFF)
+                  Will show as <strong>₹{Math.round(parseFloat(formData.originalPrice) * 0.8)}/kg</strong> with MRP <strong>₹{formData.originalPrice}</strong> struck through (20% OFF)
                 </p>
               )}
             </div>
