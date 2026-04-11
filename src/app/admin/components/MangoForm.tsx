@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { createMango, updateMango } from "../../actions/mangoes";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
@@ -767,10 +768,10 @@ export default function MangoForm({ mango }: MangoFormProps) {
             justifyContent: "flex-end",
           }}
         >
-          <button
-            type="button"
-            onClick={() => router.push("/admin/mangoes")}
+          <Link
+            href="/admin/mangoes"
             style={{
+              display: "inline-block",
               padding: "12px 32px",
               borderRadius: "8px",
               border: "1px solid #e5e7eb",
@@ -779,17 +780,12 @@ export default function MangoForm({ mango }: MangoFormProps) {
               fontSize: "0.95rem",
               fontWeight: 600,
               cursor: "pointer",
+              textDecoration: "none",
               transition: "all 0.2s ease",
-            }}
-            onMouseOver={(e) => {
-              e.currentTarget.style.background = "#f9fafb";
-            }}
-            onMouseOut={(e) => {
-              e.currentTarget.style.background = "#ffffff";
             }}
           >
             Cancel
-          </button>
+          </Link>
           <button
             type="submit"
             disabled={isSubmitting}

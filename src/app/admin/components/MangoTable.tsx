@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { deleteMango, toggleFeatured } from "../../actions/mangoes";
 import { useRouter } from "next/navigation";
 
@@ -29,14 +30,6 @@ interface MangoTableProps {
 export default function MangoTable({ mangoes }: MangoTableProps) {
   const router = useRouter();
   const [deletingId, setDeletingId] = useState<number | null>(null);
-
-  const handleAddNew = () => {
-    router.push("/admin/mangoes/add");
-  };
-
-  const handleEdit = (id: number) => {
-    router.push(`/admin/mangoes/edit/${id}`);
-  };
 
   const handleDelete = async (id: number) => {
     if (!confirm("Are you sure you want to delete this mango variety?")) {
@@ -69,9 +62,10 @@ export default function MangoTable({ mangoes }: MangoTableProps) {
     <>
       {/* Add New Button */}
       <div style={{ marginBottom: "24px" }}>
-        <button
-          onClick={handleAddNew}
+        <Link
+          href="/admin/mangoes/add"
           style={{
+            display: "inline-block",
             padding: "12px 24px",
             borderRadius: "8px",
             background: "var(--primary)",
@@ -80,19 +74,12 @@ export default function MangoTable({ mangoes }: MangoTableProps) {
             fontWeight: 600,
             border: "none",
             cursor: "pointer",
+            textDecoration: "none",
             transition: "all 0.2s ease",
-          }}
-          onMouseOver={(e) => {
-            e.currentTarget.style.transform = "translateY(-1px)";
-            e.currentTarget.style.boxShadow = "0 4px 12px rgba(253, 139, 0, 0.3)";
-          }}
-          onMouseOut={(e) => {
-            e.currentTarget.style.transform = "translateY(0)";
-            e.currentTarget.style.boxShadow = "none";
           }}
         >
           ➕ Add New Mango
-        </button>
+        </Link>
       </div>
 
       {/* Table */}
@@ -255,9 +242,10 @@ export default function MangoTable({ mangoes }: MangoTableProps) {
                     </td>
                     <td style={{ padding: "16px", textAlign: "right" }}>
                       <div style={{ display: "flex", gap: "8px", justifyContent: "flex-end" }}>
-                        <button
-                          onClick={() => handleEdit(mango.id)}
+                        <Link
+                          href={`/admin/mangoes/edit/${mango.id}`}
                           style={{
+                            display: "inline-block",
                             padding: "8px 16px",
                             borderRadius: "6px",
                             border: "1px solid #e5e7eb",
@@ -266,19 +254,12 @@ export default function MangoTable({ mangoes }: MangoTableProps) {
                             fontSize: "0.875rem",
                             fontWeight: 600,
                             cursor: "pointer",
+                            textDecoration: "none",
                             transition: "all 0.2s ease",
-                          }}
-                          onMouseOver={(e) => {
-                            e.currentTarget.style.background = "#f9fafb";
-                            e.currentTarget.style.borderColor = "#d1d5db";
-                          }}
-                          onMouseOut={(e) => {
-                            e.currentTarget.style.background = "#ffffff";
-                            e.currentTarget.style.borderColor = "#e5e7eb";
                           }}
                         >
                           Edit
-                        </button>
+                        </Link>
                         <button
                           onClick={() => handleDelete(mango.id)}
                           disabled={deletingId === mango.id}

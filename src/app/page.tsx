@@ -226,7 +226,7 @@ export default async function HomePage() {
       {/* ===== WHOLESALE BANNER ===== */}
       <section
         style={{
-          background: "var(--inverse-surface)",
+          background: "var(--primary)",
           padding: "0",
           overflow: "hidden",
         }}
@@ -257,7 +257,7 @@ export default async function HomePage() {
                 style={{
                   fontSize: "clamp(1rem, 2.5vw, 1.2rem)",
                   fontWeight: 800,
-                  color: "var(--inverse-on-surface)",
+                  color: "#ffffff",
                   letterSpacing: "-0.02em",
                   lineHeight: 1.2,
                   marginBottom: "4px",
