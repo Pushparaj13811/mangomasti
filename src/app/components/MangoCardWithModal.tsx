@@ -122,7 +122,7 @@ export default function MangoCardWithModal({ mango, config = {} }: MangoCardWith
               <span style={{ fontSize: "1.6rem", fontWeight: 800, color: "var(--primary)", lineHeight: 1.1 }}>
                 {formatPrice(discountedPaise)}
               </span>
-              <span style={{ fontSize: "0.78rem", color: "var(--on-surface-variant)", fontWeight: 600 }}>/kg</span>
+              <span style={{ fontSize: "0.78rem", color: "var(--on-surface-variant)", fontWeight: 600 }}>per 1kg</span>
             </div>
             <div style={{ display: "flex", alignItems: "center", gap: "8px", marginTop: "4px" }}>
               <span style={{ fontSize: "0.9rem", color: "var(--on-surface-variant)", textDecoration: "line-through" }}>

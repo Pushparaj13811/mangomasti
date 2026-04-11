@@ -387,7 +387,7 @@ export default function MangoModal({ mango, isOpen, onClose, config = {} }: Mang
               <span style={{ fontSize: "2.2rem", fontWeight: 800, color: "var(--primary)", lineHeight: 1.1 }}>
                 {formatPrice(discountedPaise)}
               </span>
-              <span style={{ fontSize: "0.9rem", color: "var(--on-surface-variant)", fontWeight: 600 }}>/kg</span>
+              <span style={{ fontSize: "0.9rem", color: "var(--on-surface-variant)", fontWeight: 600 }}>per 1kg</span>
             </div>
             <div style={{ display: "flex", alignItems: "center", gap: "10px", marginTop: "6px" }}>
               <span style={{ fontSize: "1rem", color: "var(--on-surface-variant)", textDecoration: "line-through" }}>
