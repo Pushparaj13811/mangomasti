@@ -363,7 +363,7 @@ h1, h2, h3, h4 {
   .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
   .grid-auto { grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); }
   .wholesale-banner-inner { flex-direction: column !important; align-items: flex-start !important; gap: 12px !important; padding: 20px 20px !important; }
-  .wholesale-banner-btn { width: 100%; justify-content: center; }
+  .wholesale-banner-btn { display: none !important; }
 }
 
 /* ===== IMAGE UTILS ===== */
